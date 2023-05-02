@@ -1,0 +1,23 @@
+body {
+    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.grid {
+    position: relative;
+    left: 250px;
+    padding-top: 6rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.paginado {
+    width: auto;
+    height: auto;
+    padding: 25px;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}

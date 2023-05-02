@@ -1,0 +1,15 @@
+.gridContainer {
+    display: flex;
+    gap: 2rem;
+    position: absolute;
+    width: 100%;
+    background-image: linear-gradient(to right top, #641619, #6b0f25, #700834, #720744, #700f55, #65266d, #503781, #2e4690, #005a98, #006993, #007587, #0e7f78);
+}
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    height: 100%;
+}

@@ -1,0 +1,71 @@
+:root {
+    --button-height: 2rem;
+    --color-text: rgba(0, 0, 0, .25);
+    --color-text-shadow: rgba(255, 255, 255, .15);
+    --color-page-bg: #B9B5AA;
+    --color-bg: #899095;
+    --color-bg-light: #969DA3;
+    --color-bg-dark: #7D878F;
+    --color-overlay-light: rgba(255, 255, 255, .2);
+    --color-overlay-medium: rgba(0, 0, 0, .1);
+    --color-overlay-dark: rgba(0, 0, 0, .2);
+    --color-tab-focus: rgba(255, 255, 255, .15);
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+.logo:hover {
+    transform: scale(1.2);
+}
+
+.nav {
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.logocont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.button_link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 103px;
+    font-family: sans-serif;
+    height: var(--button-height);
+    font-weight: 500;
+    cursor: pointer;
+    color: aliceblue;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.create:hover {
+    color: #ec2a9c;
+}

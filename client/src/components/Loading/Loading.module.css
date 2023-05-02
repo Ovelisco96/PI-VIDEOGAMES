@@ -1,0 +1,13 @@
+
+.loaderdiv{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    z-index: 200;
+}
+
+.gif{
+    width: 280px;
+}
