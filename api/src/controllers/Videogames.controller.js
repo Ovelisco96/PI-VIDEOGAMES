@@ -12,18 +12,24 @@ const STATUS_ERROR = 404;
 module.exports = {
   getAllGames: async () => {
     try {
-      const { data } = await axios.get(`${API_URL}games?key=${API_KEY}`)
-      let gamesApi = data.results?.map((game) => {
+      let apiurls = [];
+      for (let i = 1; i <= 5; i++) {
+        apiurls = [...apiurls, `https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`]
+      };
+      let api = apiurls.map((url) => axios.get(url));
+      api = await Promise.all(api);
+      api = api?.map((response) => response.data.results).flat();
+      api = api?.map((game) => {
         return {
-          id: game.id,
-          name: game.name,
-          genres: game.genres?.map((gen) => gen.name),
-          platforms: game.platforms?.map((plat) => plat.platform?.name),
-          released: game.released,
-          img: game.background_image,
-          rating: game.rating,
+            id: game.id,
+            name: game.name,
+            genres: game.genres?.map((gen) => gen.name),
+            platforms: game.platforms?.map((plat) => plat.platform.name),
+            released: game.released,
+            img: game.background_image,
+            rating: game.rating,
         };
-      });
+    });
 
       let gamesdb = await Videogame.findAll({
         include: {
@@ -47,7 +53,7 @@ module.exports = {
           description: game.description,
         };
       });
-      return [...gamesApi, ...gamesdb];
+      return [...api, ...gamesdb];
     } catch (error) {
       throw new Error("Cannot get the games");
     }
@@ -58,6 +64,7 @@ module.exports = {
       //busco los 15 resultados en la api
       const { data } = await axios.get(`https://api.rawg.io/api/games?search=${name.toLowerCase()}&key=${API_KEY}`);
       let api = data.results;
+      console.log("🚀 ~ file: Videogames.controller.js:61 ~ getGameByQuery: ~ data:", data)
       if (api.length) {
         api = api.splice(0, 15);
 
@@ -80,7 +87,7 @@ module.exports = {
           name: { [Op.iLike]: `%${name}%` },
         },
         include: {
-          model: Genre,
+          model: Genres,
           attributes: ["name"],
           through: {
             attributes: [],
@@ -100,10 +107,10 @@ module.exports = {
             description: game.description,
           };
         });
-      }; 
-      
+      };
+      gameApi = [...api, ...gameDb];
       if (gameApi.length == 0) throw new Error("Could not find the game")
-      return gameApi = [...api, ...gameDb];
+      return gameApi
     } catch (error) {
       throw new Error(error);
     }
@@ -153,7 +160,7 @@ module.exports = {
   createGame: async (name, description, released, rating, platforms, img) => {
 
     try {
-      if (!name) throw new Error('It requires a valid name')      
+      if (!name) throw new Error('It requires a valid name')
       let [game, boolean] = await Videogame.findOrCreate({
         where: {
           name: {
