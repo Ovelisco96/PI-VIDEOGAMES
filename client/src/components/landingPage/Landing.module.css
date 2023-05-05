@@ -50,9 +50,9 @@
   min-width: var(--button-height);
   border-radius: calc(var(--button-height) / 2);
   border: 0;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: white;
   text-shadow: 1px 1px var(--color-text-shadow);
   cursor: pointer;
   margin: 6px 6px;

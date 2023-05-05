@@ -18,7 +18,7 @@ const NavBar = ({ setInput, setPage }) => {
     return (
         <nav className={s.nav}>
             <div>
-                <Link onClick={handleHome} className={s.logocont} style={{ textDecoration: 'none' }} to="/videogames">
+                <Link onClick={handleHome} className={s.logocont} style={{ textDecoration: 'none' }} to="/home">
                     <img className={s.logo} src={Logo} alt="logo" />
                 </Link>
             </div>
@@ -26,7 +26,7 @@ const NavBar = ({ setInput, setPage }) => {
                 <Search setInput={setInput} setPage={setPage} />
             </div>
             <div className={s.button_link}>
-                <Link className={s.create} to="/form">
+                <Link className={s.create} to="/home">
                     <HiHome size={"18px"} style={{ marginRight:"4px" }}/>Home
                 </Link>
                 <Link className={s.create} to="/form">

@@ -5,7 +5,7 @@ import s from "./Layout.module.css"
 
 const Layout = (props) => {
   return (
-    <div className={s.container}>
+    <>
       <NavBar setInput={props.setInput} setPage={props.setPage} />
       <div className={s.gridContainer}>
         <div className={s.sidebar}>
@@ -13,7 +13,7 @@ const Layout = (props) => {
         </div>
         {props.children}
       </div>
-    </div>
+    </>
   )
 }
 

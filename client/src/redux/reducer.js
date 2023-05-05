@@ -10,6 +10,8 @@ import { GET_VIDEOGAMES,
          RESET_FILTERS,
          GET_PLATFORMS,
          CREATE_GAME,
+         PREV_PAGE,
+         NEXT_PAGE
         /*  GET_BY_RATE_P */
         } from "./actions";
 
@@ -19,7 +21,8 @@ const initialState = {
     genres: [],
     platforms: [],
     error: false,
-    errormsg: {}
+    errormsg: {},
+    numPage:1
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -68,12 +71,26 @@ const rootReducer = (state = initialState, action) => {
                 platforms: action.payload
             };
         case GET_BY_GENRE:
+            if (action.payload === "---") {
+                return {
+                    ...state,
+                    sortGames: state.videoGames,
+                    error: false
+                }
+            }
             let gamesFilt = state.sortGames.filter(game => game.genres.includes(action.payload));
             let err = !gamesFilt.length
+            if (err) {
+                return {
+                    ...state,
+                    sortGames: state.videoGames,
+                    error: `no se encontro ningun juego con el genero ${action.payload}`
+                }
+            }
             return {
                 ...state,
                 sortGames: gamesFilt,
-                error: err ? !state.error : state.error
+                error: false
             }
         case GET_BY_DB:
             const dbOApi = action.payload === "db" 
@@ -119,6 +136,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 error: true,
             }
+            case NEXT_PAGE:
+                return {
+                  ...state,
+                  numPage: state.numPage + 1,
+                };
+              case PREV_PAGE:
+                return {
+                  ...state,
+                  numPage: state.numPage - 1,
+                };
         default:
             return {
                 ...state,

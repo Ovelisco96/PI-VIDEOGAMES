@@ -14,12 +14,13 @@ const Home = () => {
   //traer todos los videojuegos y generos
   const dispatch = useDispatch();
   const videogames = useSelector(state => state.sortGames);
+  const numPage = useSelector(state => state.numPage);
   const genres = useSelector(state => state.genres)
   const error = useSelector(state => state.error);
 
   useEffect(() => {
     if (!videogames.length) dispatch(getVideogames());
-    /* if (!genres.length) dispatch(getGenres()) */
+    if (!genres.length) dispatch(getGenres())
   }, [dispatch, videogames, genres]);
 
   //filtrado
@@ -31,34 +32,43 @@ const Home = () => {
   const [perPage] = useState(15);
 
   const max = videogames.length / perPage;
+  console.log("🚀 ~ file: Home.jsx:35 ~ Home ~ videogames.length:", max)
 
   return (
     <>
       {
         videogames.length ?
           <>
-            {error && <Errors />}
+            {/* {error && <Errors />} */}
             <Layout setInput={setInput} setPage={setPage} setSort={setSort} sort={sort}>
-              <div className={s.grid}>
-                {
-                  videogames?.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
-                    .map((game, i) => {
-                      
-                      return (
-                        <Card
-                          name={game.name}
-                          img={game.img}
-                          rate={game.rating}
-                          genres={game.genres}
-                          id={game.id}
-                          key={game.id}
-                        />
-                      )
-                    })
-                }
-                <div className={s.paginado}>
-                  <Paginacion input={input} setInput={setInput} page={page} setPage={setPage} max={max} />
+              <div className={s.containerHome}>
+
+                <div className={s.grid}>
+
+                  {
+                    error === false ?
+                      videogames?.slice((page - 1) * perPage, (page - 1) * perPage + perPage)
+                        .map((game, i) => {
+
+                          return (
+                            <Card
+                              name={game.name}
+                              img={game.img}
+                              rate={game.rating}
+                              genres={game.genres}
+                              id={game.id}
+                              key={game.id}
+                            />
+                          )
+                        }) : <h2 className={s.error}>{error}</h2>
+                  }
+
                 </div>
+                  {error === false ?<div className={s.paginado}>
+                  <Paginacion input={input} setInput={setInput} page={page} setPage={setPage} max={max} />
+                </div>:null}
+                
+                
               </div>
             </Layout>
           </> : <Loading />

@@ -6,12 +6,22 @@ body {
 }
 
 .grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-top: 6rem;
+    gap: 10px;
+}
+
+.error{
+    color: white;
+}
+
+.grid_loader{
     position: relative;
     left: 250px;
     padding-top: 6rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    height: 100vh;
 }
 
 .paginado {
@@ -20,4 +30,12 @@ body {
     padding: 25px;
     grid-column-start: 1;
     grid-column-end: 4;
+}
+
+.containerHome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: auto;
 }

@@ -11,17 +11,31 @@ export const CLOSE_ERROR = "CLOSE_ERROR";
 export const RESET_FILTERS = "RESET_FILTERS";
 export const GET_PLATFORMS = "GET_PLATFORMS";
 export const CREATE_GAME = "CREATE_GAME";
+export const NEXT_PAGE = "NEXT_PAGE";
+export const PREV_PAGE = "PREV_PAGE";
 
 export const getVideogames = () => async dispatch => {
     try {
         console.log("====holiii");
         let result = await axios.get('http://localhost:3001/videogames')
-        console.log("🚀 ~ file: actions.js:18 ~ getVideogames ~ result:", result)
         return dispatch({type: GET_VIDEOGAMES, payload: result.data})
     } catch (error) {
         return dispatch({type: ERROR, payload: error});
     }
 };
+
+export function prevPage() {
+    return {
+      type: PREV_PAGE,
+    };
+  }
+  
+  export function nextPage() {
+    console.log("siiiii>>");
+    return {
+      type: NEXT_PAGE,
+    };
+  }
 
 export const getVideogamesByName = (name) => async dispatch => {
     try {
