@@ -1,21 +1,22 @@
 import s from "./Form.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from 'react-router-dom'
-import { createVideogame, getGenres, getPlatforms } from "../../redux/actions";
+import { redirect } from 'react-router-dom'
+import { createVideogame, getGenres, getPlatforms, getVideogames } from "../../redux/actions";
 import NavBar from "../NavBar/NavBar";
+import CardPreviewGame from "../CardPreviwGame/CardPreviwGame";
 
 const Form = () => {
     const dispatch = useDispatch();
 
     //trayendo Genres y platforms
     const genres = useSelector((state) => state.genres);
-    const platform = useSelector((state) => state.platforms);
+    const platforms = useSelector((state) => state.platforms); 
 
     useEffect(() => {
-        dispatch(getPlatforms())
-        dispatch(getGenres())
-    }, [dispatch])
+        if (!platforms.length) dispatch(getPlatforms())
+        if (!genres.length) dispatch(getGenres())
+    }, [])
 
     //formulario y errores
     const [error, setError] = useState({});
@@ -28,6 +29,13 @@ const Form = () => {
         img: "",
         rating: 0,
     });
+
+    useEffect(() => {
+        console.log("game====", game);
+        setError(validate(game))
+
+    }, [game])
+
 
     const handleInput = (e) => {
         setGame({
@@ -77,25 +85,25 @@ const Form = () => {
 
     const validate = (form) => {
         const errors = {};
-        if (game.name.length < 2) { errors.name = "Name must have at least 2 characters" };
-        if (game.description.length < 15) { errors.description = "Description must have at least 15 characters" };
-        if (game.rating < 0) { errors.rating = "Rating must be greater than 0" }
-        if (isNaN(game.rating)) { errors.rating = "Rating must be a number" }
-        if (game.genres.length < 2) { errors.genres = "The game must have at least one gender" }
-        if (game.platforms.length < 2) { errors.platforms = "the game must have at least one platform" }
+        if (form.name.length < 2) { errors.name = "Name must have at least 2 characters" };
+        if (form.description.length < 15) { errors.description = "Description must have at least 15 characters" };
+        if (form.rating < 0) { errors.rating = "Rating must be greater than 0" }
+        if (isNaN(form.rating)) { errors.rating = "Rating must be a number" }
+        if (form.genres.length < 1) { errors.genres = "The game must have at least one gender" }
+        if (form.platforms.length < 1) { errors.platforms = "the game must have at least one platform" }
         return errors;
     };
 
     //Logica para postear el game
     const handleCreate = async (e) => {
         e.preventDefault()
-        setError(validate(game))
         if (Object.values(error).length > 0) {
             return alert("Please verify that all fields are filled in correctly");
         } else {
-            dispatch(createVideogame(game));
+            /* dispatch(createVideogame(game));
+            window.location.reload(); */
             alert("Game Created!");
-            window.location.reload();
+            /* redirect("/home")  */
         }
     };
 
@@ -106,7 +114,7 @@ const Form = () => {
             <div className={s.formC}>
                 <form className={s.form} onSubmit={handleCreate}>
                     <h2 className={s.name}>Create Videogame</h2>
-                    <label><span className={s.title}>Name: </span></label>
+                    <label><span className={s.title}>White the name of your game: </span></label>
                     <input
                         type="text"
                         name="name"
@@ -114,7 +122,7 @@ const Form = () => {
                         autoComplete="off"
                     />
                     {error.name && <span className={s.error}>{error.name}</span>}
-                    <label><span className={s.title}>Description: </span></label>
+                    <label><span className={s.title}>write your game description: </span></label>
                     <input
                         type="text"
                         name="description"
@@ -122,31 +130,33 @@ const Form = () => {
                         autoComplete="off"
                     />
                     {error.description && <span>{error.description}</span>}
-                    <label><span className={s.title}>Released: </span></label>
+                    <label><span className={s.title}>Pick your game launch date: </span></label>
                     <input
-                        type="text"
+                        type="date"
                         name="released"
                         onChange={handleInput}
                         autoComplete="off"
                     />
-                    <label><span className={s.title}>Rating: </span></label>
+                    <label><span className={s.title}>Pick your game launch Rating: </span></label>
                     <input
-                        type="text"
+                        type="range"
                         name="rating"
                         onChange={handleInput}
                         autoComplete="off"
                     />
                     {error.rating && <span>{error.rating}</span>}
-                    <label><span className={s.title}>Image: </span></label>
+                    <label><span className={s.title}>Insert your game image url: </span></label>
                     <input
                         type="text"
                         name="img"
                         onChange={handleInput}
                         autoComplete="off"
                     />
+                    <label><span className={s.title}>Pick your game Platforms: </span></label>
+
                     <select name="platforms" onChange={handleSelectPlatform}>
                         <option value="platforms">Platforms</option>
-                        {platform?.map((pla, i) => { return (<option key={i}>{pla.name}</option>) })}
+                        {platforms?.map((pla, i) => { return (<option key={i}>{pla}</option>) })}
                     </select>
                     {error.platforms && <span>{error.platforms}</span>}
                     <div>
@@ -158,6 +168,8 @@ const Form = () => {
                             })
                         }
                     </div>
+                    <label><span className={s.title}>Pick your game genres: </span></label>
+
                     <select name="genres" onChange={handleSelectGenre}>
                         <option value="genres">genres</option>
                         {genres?.map((genre, i) => { return (<option key={i}>{genre.name}</option>) })}
@@ -174,6 +186,9 @@ const Form = () => {
                     </div>
                     <button className={s.buttonD} type="submit">CREATE</button>
                 </form>
+                <div className={s.preView_card}>
+                    <CardPreviewGame game={game} />
+                </div>
             </div>
         </div>
     )

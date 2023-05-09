@@ -1,0 +1,78 @@
+:root {
+    --button-height: 3rem;
+    --color-text: rgba(0, 0, 0, .25);
+    --color-text-shadow: rgba(255, 255, 255, .15);
+    --color-page-bg: #B9B5AA;
+    --color-bg: #899095;
+    --color-bg-light: #969DA3;
+    --color-bg-dark: #7D878F;
+    --color-overlay-light: rgba(255, 255, 255, .2);
+    --color-overlay-medium: rgba(0, 0, 0, .1);
+    --color-overlay-dark: rgba(0, 0, 0, .2);
+    --color-tab-focus: rgba(255, 255, 255, .15);
+}
+
+.container {
+    max-width: 1200px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.card {
+    display: grid;
+    width: 250px;
+    height: 400px;
+    box-shadow: 0 2px 2px rgba(43, 42, 42, 0);
+    overflow: hidden;
+    backdrop-filter: blur(13.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.25s;
+    gap: 5px;
+    background: rgba(19, 18, 18, 0.425);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.25);
+}
+
+.img {
+    width: 250px;
+    height: 220px;
+    margin: 0px;
+}
+
+.name {
+    margin: 5px;
+    color: white;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.rate {
+    margin: 0px;
+    font-size: 25px;
+    color: rgba(216, 209, 76, 0.534);
+    font-family: sans-serif;
+    font-weight: 800;
+
+}
+
+.genre {
+    margin-left: 5px;
+    color: white;
+    text-shadow: 1px 1px rgba(255, 255, 255, .15);
+    font-family: sans-serif;
+    font-weight: 400;
+}
