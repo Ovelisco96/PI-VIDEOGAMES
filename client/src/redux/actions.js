@@ -18,74 +18,75 @@ export const getVideogames = () => async dispatch => {
     try {
         console.log("====holiii");
         let result = await axios.get('http://localhost:3001/videogames')
-        return dispatch({type: GET_VIDEOGAMES, payload: result.data})
+        return dispatch({ type: GET_VIDEOGAMES, payload: result.data })
     } catch (error) {
-        return dispatch({type: ERROR, payload: error});
+        return dispatch({ type: ERROR, payload: error });
     }
 };
 
 export function prevPage() {
     return {
-      type: PREV_PAGE,
+        type: PREV_PAGE,
     };
-  }
-  
-  export function nextPage() {
+}
+
+export function nextPage() {
     console.log("siiiii>>");
     return {
-      type: NEXT_PAGE,
+        type: NEXT_PAGE,
     };
-  }
+}
 
 export const getVideogamesByName = (name) => async dispatch => {
     try {
         let result = await axios.get(`http://localhost:3001/videogames?name=${name}`);
-        return dispatch({type: SEARCH, payload: result.data})
-    } catch(error) {
-        return dispatch({type: ERROR, payload: error});
+        return dispatch({ type: SEARCH, payload: result.data })
+    } catch (error) {
+        return dispatch({ type: ERROR, payload: error });
     };
 };
 
 export const getGenres = () => async dispatch => {
     let result = await axios.get("http://localhost:3001/genres");
-    return dispatch({type: GET_GENRES, payload: result.data});
+    return dispatch({ type: GET_GENRES, payload: result.data });
 };
 
-export const getPlatforms = () => async dispatch => {
-    let result = await axios.get("http://localhost:3001/platforms");
-    return dispatch({type: GET_PLATFORMS, payload: result.data});
+export const getPlatforms = () => async (dispatch, getState) => {
+    console.log("🚀 ~ file: actions.js:65 ~ getPlatforms ~ getState:", getState())
+    let result = await axios.get('http://localhost:3001/videogames')
+    return dispatch({ type: GET_PLATFORMS, payload: result.data });
 };
 
 export const getVideogamesByRate = (rate) => dispatch => {
-    return dispatch({type: GET_BY_RATING, payload: rate});
+    return dispatch({ type: GET_BY_RATING, payload: rate });
 };
 
 export const getVideogamesByAlp = (alp) => dispatch => {
-    return dispatch({type:GET_BY_ALP, payload: alp});
+    return dispatch({ type: GET_BY_ALP, payload: alp });
 };
 
 
 export const getByGenre = (genre) => dispatch => {
     try {
-        return dispatch({type: GET_BY_GENRE, payload: genre})
+        return dispatch({ type: GET_BY_GENRE, payload: genre })
     } catch (error) {
-        return dispatch({type: ERROR, payload: error});
+        return dispatch({ type: ERROR, payload: error });
     }
 };
 
 export const getDbGames = (value) => dispatch => {
-    return dispatch({type: GET_BY_DB, payload: value });
+    return dispatch({ type: GET_BY_DB, payload: value });
 };
 
 export const createVideogame = (game) => async dispatch => {
     const newGame = await axios.post("http://localhost:3001/videogames", game);
-    return dispatch({type: CREATE_GAME, payload: newGame.data})
+    return dispatch({ type: CREATE_GAME, payload: newGame.data })
 };
 
 export const resetFilters = () => dispatch => {
-    return dispatch({type: RESET_FILTERS});
+    return dispatch({ type: RESET_FILTERS });
 };
 
-export const closeError = () => dispatch =>{
-    return dispatch({type: CLOSE_ERROR});
+export const closeError = () => dispatch => {
+    return dispatch({ type: CLOSE_ERROR });
 }; 

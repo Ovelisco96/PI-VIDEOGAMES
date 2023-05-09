@@ -1,19 +1,20 @@
-import { GET_VIDEOGAMES,
-         SEARCH,
-         ERROR,
-         CLOSE_ERROR,
-         GET_BY_RATING,
-         GET_BY_ALP, 
-         GET_GENRES,
-         GET_BY_GENRE,
-         GET_BY_DB,
-         RESET_FILTERS,
-         GET_PLATFORMS,
-         CREATE_GAME,
-         PREV_PAGE,
-         NEXT_PAGE
-        /*  GET_BY_RATE_P */
-        } from "./actions";
+import {
+    GET_VIDEOGAMES,
+    SEARCH,
+    ERROR,
+    CLOSE_ERROR,
+    GET_BY_RATING,
+    GET_BY_ALP,
+    GET_GENRES,
+    GET_BY_GENRE,
+    GET_BY_DB,
+    RESET_FILTERS,
+    GET_PLATFORMS,
+    CREATE_GAME,
+    PREV_PAGE,
+    NEXT_PAGE
+    /*  GET_BY_RATE_P */
+} from "./actions";
 
 const initialState = {
     videoGames: [],
@@ -22,11 +23,11 @@ const initialState = {
     platforms: [],
     error: false,
     errormsg: {},
-    numPage:1
+    numPage: 1,
 };
 
 const rootReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case GET_VIDEOGAMES:
             const g = [...action.payload]
             return {
@@ -36,26 +37,28 @@ const rootReducer = (state = initialState, action) => {
             };
         case GET_BY_RATING:
             const gamesSorted = action.payload === "higer"
-                              ? state.sortGames.sort((a, b) => b.rating - a.rating)
-                              : action.payload === "lower"
-                              ? state.sortGames.sort((a,b) => a.rating - b.rating)
-                              : [...state.sortGames];
+                ? state.sortGames.sort((a, b) => b.rating - a.rating)
+                : action.payload === "lower"
+                    ? state.sortGames.sort((a, b) => a.rating - b.rating)
+                    : [...state.sortGames];
             return {
                 ...state,
                 sortGames: gamesSorted
             };
         case GET_BY_ALP:
             const sortByAlp = action.payload === "asc"
-                              ? state.sortGames.sort((a,b) => {if(a.name > b.name) return 1;
-                                                                if(a.name < b.name) return -1;
-                                                                return 0;
-                                                               })
-                              : action.payload === "desc"
-                              ? state.sortGames.sort((a,b) => {if(a.name > b.name) return -1;
-                                                                if(a.name < b.name) return 1;
-                                                                return 0;
-                                                               })
-                              : [...state.sortGames];
+                ? state.sortGames.sort((a, b) => {
+                    if (a.name > b.name) return 1;
+                    if (a.name < b.name) return -1;
+                    return 0;
+                })
+                : action.payload === "desc"
+                    ? state.sortGames.sort((a, b) => {
+                        if (a.name > b.name) return -1;
+                        if (a.name < b.name) return 1;
+                        return 0;
+                    })
+                    : [...state.sortGames];
             return {
                 ...state,
                 sortGames: sortByAlp
@@ -66,9 +69,18 @@ const rootReducer = (state = initialState, action) => {
                 genres: action.payload
             }
         case GET_PLATFORMS:
+            let plat = []
+            action.payload.map((item) => {
+                item.platforms.map((item) => {
+                    if (!plat.includes(item)) {
+                        plat.push(item)
+                    }
+
+                })
+            })
             return {
                 ...state,
-                platforms: action.payload
+                platforms: plat
             };
         case GET_BY_GENRE:
             if (action.payload === "---") {
@@ -93,21 +105,21 @@ const rootReducer = (state = initialState, action) => {
                 error: false
             }
         case GET_BY_DB:
-            const dbOApi = action.payload === "db" 
-                           ? state.videoGames.filter(game => game.id.toString().includes("-"))
-                           : action.payload === "api"
-                           ? state.videoGames.filter(game => !game.id.toString().includes("-"))
-                           : [...state.videoGames];
+            const dbOApi = action.payload === "db"
+                ? state.videoGames.filter(game => game.id.toString().includes("-"))
+                : action.payload === "api"
+                    ? state.videoGames.filter(game => !game.id.toString().includes("-"))
+                    : [...state.videoGames];
             return {
                 ...state,
                 sortGames: dbOApi
             };
         case CREATE_GAME:
-            if(action.payload.status === 200) {
+            if (action.payload.status === 200) {
                 return {
                     ...state,
                     errormsg: {}
-                } 
+                }
             } else {
                 return {
                     ...state,
@@ -136,16 +148,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 error: true,
             }
-            case NEXT_PAGE:
-                return {
-                  ...state,
-                  numPage: state.numPage + 1,
-                };
-              case PREV_PAGE:
-                return {
-                  ...state,
-                  numPage: state.numPage - 1,
-                };
+        case NEXT_PAGE:
+            return {
+                ...state,
+                numPage: state.numPage + 1,
+            };
+        case PREV_PAGE:
+            return {
+                ...state,
+                numPage: state.numPage - 1,
+            };
         default:
             return {
                 ...state,
