@@ -21,15 +21,18 @@ module.exports = {
       api = api?.map((response) => response.data.results).flat();
       api = api?.map((game) => {
         return {
-            id: game.id,
-            name: game.name,
-            genres: game.genres?.map((gen) => gen.name),
-            platforms: game.platforms?.map((plat) => plat.platform.name),
-            released: game.released,
-            img: game.background_image,
-            rating: game.rating,
+          id: game.id,
+          name: game.name,
+          genres: game.genres?.map((gen) => gen.name),
+          platforms: game.platforms?.map((plat) => {
+
+            return plat.platform.name
+          }),
+          released: game.released,
+          img: game.background_image,
+          rating: game.rating,
         };
-    });
+      });
 
       let gamesdb = await Videogame.findAll({
         include: {
@@ -53,7 +56,7 @@ module.exports = {
           description: game.description,
         };
       });
-      return [...api, ...gamesdb];
+      return [...gamesdb, ...api];
     } catch (error) {
       throw new Error("Cannot get the games");
     }
@@ -128,13 +131,14 @@ module.exports = {
         const gamedb = {
           id: db.dataValues.id,
           name: db.dataValues.name,
-          genres: db.dataValues.genres?.map((gen) => gen.name),
+          genres: db.dataValues.Genres?.map((gen) => gen.name),
           platforms: db.dataValues.platforms,
           released: db.dataValues.released,
           img: db.dataValues.img,
           rating: db.dataValues.rating,
           description: db.dataValues.description,
         }
+        console.log("🚀 ~ file: Videogames.controller.js:141 ~ getGameById: ~ gamedb:", gamedb)
 
         return gamedb;
       } else {
