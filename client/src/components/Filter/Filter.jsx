@@ -64,14 +64,14 @@ const Filter = ({ sort, setSort, setInput, setPage }) => {
             {genr?.map((gen, i) => <option key={i} value={gen.name}>{gen.name}</option>)}
           </select>
         </div>
-        {/* <div className={s.alpgrid}>
-                    <h3 className={s.titl}>Created vs API:</h3>
-                    <button className={s.button1} value="api" onClick={handleCreated}>API</button>
-                    <button className={s.button3} value="db" onClick={handleCreated}>CREATED</button>
-                </div>
-                <div>
-                    <button className={s.button4} onClick={handleReset}>RESET FILTERS</button>
-                </div> */}
+        <div className={s.alpgrid}>
+          <h3 className={s.titl}>Created vs API:</h3>
+          <button className={s.button} value="api" onClick={handleCreated}>API</button>
+          <button className={s.button} value="db" onClick={handleCreated}>CREATED</button>
+        </div>
+        <div>
+          <button className={s.button4} onClick={handleReset}>RESET FILTERS</button>
+        </div>
       </div>
     </div>
   )

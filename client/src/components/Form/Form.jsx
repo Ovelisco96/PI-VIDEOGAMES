@@ -1,17 +1,17 @@
 import s from "./Form.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { createVideogame, getGenres, getPlatforms, getVideogames } from "../../redux/actions";
 import NavBar from "../NavBar/NavBar";
 import CardPreviewGame from "../CardPreviwGame/CardPreviwGame";
 
 const Form = () => {
     const dispatch = useDispatch();
-
+    let { push } = useHistory();
     //trayendo Genres y platforms
     const genres = useSelector((state) => state.genres);
-    const platforms = useSelector((state) => state.platforms); 
+    const platforms = useSelector((state) => state.platforms);
 
     useEffect(() => {
         if (!platforms.length) dispatch(getPlatforms())
@@ -31,7 +31,6 @@ const Form = () => {
     });
 
     useEffect(() => {
-        console.log("game====", game);
         setError(validate(game))
 
     }, [game])
@@ -100,10 +99,9 @@ const Form = () => {
         if (Object.values(error).length > 0) {
             return alert("Please verify that all fields are filled in correctly");
         } else {
-            /* dispatch(createVideogame(game));
-            window.location.reload(); */
+            dispatch(createVideogame(game));
             alert("Game Created!");
-            /* redirect("/home")  */
+            push('/home')
         }
     };
 

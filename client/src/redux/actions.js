@@ -40,6 +40,7 @@ export function nextPage() {
 export const getVideogamesByName = (name) => async dispatch => {
     try {
         let result = await axios.get(`http://localhost:3001/videogames?name=${name}`);
+        console.log("🚀 ~ file: actions.js:44 ~ getVideogamesByName ~ result:", result)
         return dispatch({ type: SEARCH, payload: result.data })
     } catch (error) {
         return dispatch({ type: ERROR, payload: error });

@@ -67,7 +67,6 @@ module.exports = {
       //busco los 15 resultados en la api
       const { data } = await axios.get(`https://api.rawg.io/api/games?search=${name.toLowerCase()}&key=${API_KEY}`);
       let api = data.results;
-      console.log("🚀 ~ file: Videogames.controller.js:61 ~ getGameByQuery: ~ data:", data)
       if (api.length) {
         api = api.splice(0, 15);
 
@@ -99,13 +98,14 @@ module.exports = {
       });
       if (gameDb.length) {
         gameDb = gameDb.map((game) => {
+          console.log("🚀 ~ file: Videogames.controller.js:100 ~ getGameByQuery: ~ gameDb:", game.Genres)
           return {
             id: game.id,
             name: game.name,
-            genres: game.genres?.map((gen) => gen.name),
+            genres: game.Genres?.map((gen) => gen.name),
             platforms: game.platfoms,
             released: game.released,
-            img: game.background_image,
+            img: game.img,
             rating: game.rating,
             description: game.description,
           };

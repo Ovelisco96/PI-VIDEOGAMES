@@ -30,8 +30,12 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [input, setInput] = useState(1);
   const [perPage] = useState(15);
-
-  const max = videogames.length / perPage;
+  let max;
+  if (videogames?.length < 100) {
+    max = 5;
+  }else{
+    max = videogames?.length / perPage;
+  }
   console.log("🚀 ~ file: Home.jsx:35 ~ Home ~ videogames.length:", max)
 
   return (
@@ -64,11 +68,11 @@ const Home = () => {
                   }
 
                 </div>
-                  {error === false ?<div className={s.paginado}>
+                {error === false ? <div className={s.paginado}>
                   <Paginacion input={input} setInput={setInput} page={page} setPage={setPage} max={max} />
-                </div>:null}
-                
-                
+                </div> : null}
+
+
               </div>
             </Layout>
           </> : <Loading />

@@ -3,7 +3,6 @@ import s from './Card.module.css';
 import { Link } from 'react-router-dom';
 
 const CardPreviewGame = ({ game }) => {
-  console.log("🚀 ~ file: CardPreviwGame.jsx:5 ~ CardPreviewGame ~ name,released,escription,genres,platforms,img,  rating,:", game)
 
   const { name, released, description, genres, platforms, img, rating, } = game
   return (
