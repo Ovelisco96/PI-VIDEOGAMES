@@ -6,9 +6,30 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/*estilos scrollbart*/
+
+/* Works on Firefox */
+
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #65266d,
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #65266d;
+  border-radius: 20px;
+  border: 3px solid #503781,
 }
