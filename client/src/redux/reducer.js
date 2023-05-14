@@ -43,7 +43,7 @@ const rootReducer = (state = initialState, action) => {
                     : [...state.sortGames];
             return {
                 ...state,
-                sortGames: gamesSorted
+                videoGames: gamesSorted
             };
         case GET_BY_ALP:
             const sortByAlp = action.payload === "asc"
@@ -61,7 +61,7 @@ const rootReducer = (state = initialState, action) => {
                     : [...state.sortGames];
             return {
                 ...state,
-                sortGames: sortByAlp
+                videoGames: sortByAlp
             }
         case GET_GENRES:
             return {
@@ -86,7 +86,7 @@ const rootReducer = (state = initialState, action) => {
             if (action.payload === "---") {
                 return {
                     ...state,
-                    sortGames: state.videoGames,
+                    videoGames: state.videoGames,
                     error: false
                 }
             }
@@ -95,24 +95,24 @@ const rootReducer = (state = initialState, action) => {
             if (err) {
                 return {
                     ...state,
-                    sortGames: state.videoGames,
+                    videoGames: state.videoGames,
                     error: `no se encontro ningun juego con el genero ${action.payload}`
                 }
             }
             return {
                 ...state,
-                sortGames: gamesFilt,
+                videoGames: gamesFilt,
                 error: false
             }
         case GET_BY_DB:
             const dbOApi = action.payload === "db"
-                ? state.videoGames.filter(game => game.id.toString().includes("-"))
+                ? state.sortGames.filter(game => game.id.toString().includes("-"))
                 : action.payload === "api"
-                    ? state.videoGames.filter(game => !game.id.toString().includes("-"))
+                    ? state.sortGames.filter(game => !game.id.toString().includes("-"))
                     : [...state.videoGames];
             return {
                 ...state,
-                sortGames: dbOApi
+                videoGames: dbOApi
             };
         case CREATE_GAME:
             if (action.payload.status === 200) {
@@ -129,14 +129,13 @@ const rootReducer = (state = initialState, action) => {
         case SEARCH:
             return {
                 ...state,
-                sortGames: action.payload,
+                videoGames: action.payload,
             };
         case RESET_FILTERS:
-            const reset = state.videoGames;
             return {
                 ...state,
-                videoGames: state.videoGames,
-                sortGames: reset
+                videoGames: state.sortGames,
+                sortGames: state.sortGames
             };
         case CLOSE_ERROR:
             return {

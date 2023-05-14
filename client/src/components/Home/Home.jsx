@@ -13,7 +13,7 @@ import Layout from "../Layout/Layout";
 const Home = () => {
   //traer todos los videojuegos y generos
   const dispatch = useDispatch();
-  const videogames = useSelector(state => state.sortGames);
+  const videogames = useSelector(state => state.videoGames);
   const numPage = useSelector(state => state.numPage);
   const genres = useSelector(state => state.genres)
   const error = useSelector(state => state.error);

@@ -108,69 +108,31 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.button4{
-    --color-bg:#00A07D;
-    --color-bg-light:#00AF8A;
-    --color-bg-dark:#008F70;
+.button{
     appearance:none;
     box-sizing:border-box;
     font-size:calc( var(--button-height) / 3 );
     font-family: sans-serif;
-    background: var(--color-bg);
-    height:var(--button-height);
-    min-width:var(--button-height);
-    border-radius:calc( var(--button-height) / 2);
+    height: 40px;
+    width: 200px;
+    border-radius:15px;
     border:0;
     font-weight:800;
     text-transform:uppercase;
     color:var(--color-text);
-    text-shadow: 1px 1px var(--color-text-shadow);
     cursor:pointer;
-    margin:6px 6px;
+    margin:10px 0px;
     letter-spacing:.1em;
     transition: all 200ms ease;
-    box-shadow:
-      -1px  -1px 1px var(--color-bg), 
-      0 0 0 4px var(--color-overlay-medium), 
-      1px  1px 1px var(--color-bg-dark),
-      inset .0 .0 .0 var(--color-overlay-dark),    
-      inset .5rem .5rem .25rem var(--color-bg-light) 
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.button1:focus{
-    outline:none;
-    box-shadow:
-    -1px -1px 1px var(--color-bg-dark),
-    0 0 0 4px var(--color-tab-focus), 
-    1px  1px 1px var(--color-bg-dark), 
-    inset 0 0 0 var(--color-overlay-dark), 
-    inset .5rem .5rem .25rem var(--color-bg-light), 
-    ;
-}
 
-.button2:focus{
-    outline:none;
-    box-shadow:
-    -1px -1px 1px var(--color-bg-dark), 
-    0 0 0 4px var(--color-tab-focus), 
-    1px  1px 1px var(--color-bg-dark), 
-    inset 0 0 0 var(--color-overlay-dark), 
-    inset .5rem .5rem .25rem var(--color-bg-light), 
-    ;
-}
-
-.button3:focus{
-    outline:none;
-    box-shadow:
-    -1px -1px 1px var(--color-bg-dark), 
-    0 0 0 4px var(--color-tab-focus), 
-    1px  1px 1px var(--color-bg-dark), 
-    inset 0 0 0 var(--color-overlay-dark), 
-    inset .5rem .5rem .25rem var(--color-bg-light), 
-    ;
-}
-
-.button4:focus{
+.button:hover{
     outline:none;
     box-shadow:
     -1px -1px 1px var(--color-bg-dark), 

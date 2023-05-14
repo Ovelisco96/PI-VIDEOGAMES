@@ -57,7 +57,7 @@ const Filter = ({ sort, setSort, setInput, setPage }) => {
             <option value="lower">Descendent</option>
           </select>
         </div>
-        <div>
+        <div className={s.alpgrid}>
           <h3 className={s.titl}>Genres:</h3>
           <select className={s.selectbox} name="Genres" id="Genres" onChange={handleGenres}>
             <option>---</option>
@@ -66,11 +66,14 @@ const Filter = ({ sort, setSort, setInput, setPage }) => {
         </div>
         <div className={s.alpgrid}>
           <h3 className={s.titl}>Created vs API:</h3>
-          <button className={s.button} value="api" onClick={handleCreated}>API</button>
-          <button className={s.button} value="db" onClick={handleCreated}>CREATED</button>
+          <select className={s.selectbox} name="Genres" id="Genres" onChange={handleCreated}>
+            <option>---</option>
+             <option  value="api">Api</option>
+             <option  value="db">Created</option>
+          </select>
         </div>
-        <div>
-          <button className={s.button4} onClick={handleReset}>RESET FILTERS</button>
+        <div >
+          <button className={s.button} onClick={handleReset}>RESET FILTERS</button>
         </div>
       </div>
     </div>
